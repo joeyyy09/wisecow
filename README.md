@@ -50,4 +50,4 @@ The Ingress resource was updated to reference these secrets, enabling encrypted 
 ---
 
 ## End Goal
-The project achieved successful containerization and automated deployment of the Wisecow application on a Kubernetes cluster, integrated with a CI/CD pipeline and secured with TLS.
+The project achieved successful containerization and automated deployment of the Wisecow application on a Kubernetes cluster, integrated with a CI/CD pipeline and secured with TLS.# Automated deployment test
