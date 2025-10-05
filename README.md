@@ -51,3 +51,29 @@ The Ingress resource was updated to reference these secrets, enabling encrypted 
 
 ## End Goal
 The project achieved successful containerization and automated deployment of the Wisecow application on a Kubernetes cluster, integrated with a CI/CD pipeline and secured with TLS.# Automated deployment test
+
+## TLS/HTTPS Implementation
+
+### Components
+
+- **cert-manager**: Automated certificate management
+- **Self-signed ClusterIssuer**: Generates TLS certificates
+- **NGINX Ingress**: Handles TLS termination
+- **Certificate**: wisecow-tls for wisecow.local domain
+
+### Deployment
+```bash
+# Install cert-manager
+kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.13.0/cert-manager.yaml
+
+# Enable ingress
+minikube addons enable ingress
+
+# Deploy TLS configuration
+kubectl apply -f k8s/self-signed-issuer.yaml
+kubectl apply -f k8s/certificate.yaml
+kubectl apply -f k8s/ingress.yaml
+
+# Verify
+kubectl get certificate
+kubectl get ingress

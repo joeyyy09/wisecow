@@ -1,4 +1,4 @@
-name: Build and Push Wisecow
+name: Build and Deploy Wisecow
 
 on:
   push:
@@ -36,5 +36,25 @@ jobs:
     
     - name: Image digest
       run: |
-        echo "✅ Docker image built and pushed successfully!"
+        echo "Image built and pushed successfully!"
         echo "Image: ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:latest"
+
+  # Continuous Deployment (requires KUBE_CONFIG secret for cloud clusters)
+  deploy:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    
+    - name: Install kubectl
+      uses: azure/setup-kubectl@v3
+    
+    - name: Deploy to Kubernetes
+      run: |
+        # Note: This requires KUBE_CONFIG secret for cloud clusters
+        # For local Minikube, deployment must be done manually
+        echo "Deployment step configured"
+        echo "For local testing, run: kubectl apply -f k8s/"

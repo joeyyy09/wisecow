@@ -3,15 +3,15 @@ kind: Ingress
 metadata:
   name: wisecow-ingress
   annotations:
-    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
 spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - wisecow.yourdomain.com
+    - wisecow.local
     secretName: wisecow-tls
   rules:
-  - host: wisecow.yourdomain.com
+  - host: wisecow.local
     http:
       paths:
       - path: /
